@@ -1,2 +1,2 @@
 # webapp
-fürs Studium
+fürs Studium und so weiter
