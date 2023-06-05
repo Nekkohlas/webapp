@@ -4,10 +4,11 @@ import db
 #comment
 #weiteres comment
 #doesthiswork
-app = Flask(__name__)   
+# app = Flask(__name__)   #commented out 
 
+"""
 app.config.from_mapping(
-	SECRET_KEY='secret_key_just_for_dev_environment',
+	SECRET_KEY='secret_key_just_for_dev_environment',   #Secret_Key encrypt/secure cookies and session data related to website 
 	DATABASE=os.path.join(app.instance_path, 'todos.sqlite')
 )
 app.cli.add_command(db.init_db)
@@ -27,7 +28,7 @@ def lists():
         list = dict(list_temp)
         sql_query = (
             'SELECT COUNT(complete) = SUM(complete) '
-            'AS complete FROM todo '
+            'AS complete FROM todo ' 
             f'JOIN todo_list ON list_id={list["id"]} '
                 'AND todo_id=todo.id; '
         )
@@ -64,4 +65,19 @@ def list(id):
 @app.route('/insert/sample')
 def run_insert_sample():
     db.insert_sample()
-    return 'Database flushed and populated with some sample data.'
+     return 'Database flushed and populated with some sample data.'"""
+############################################################commented out 
+
+def create_app():
+    app=Flask(__name__)
+    app.config['SECRET_KEY'] = 'just for testing'
+
+    from .views import views
+    from .auth import auth
+
+    app.register_blueprint(views, url_prefix='/')    #register blueprint w application
+    app.register_blueprint(auth, url_prefix='/')    #no prefix so we dont have to use prefix 
+    
+    
+    
+    return app
